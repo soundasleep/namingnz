@@ -19,3 +19,13 @@ Tools to help Naming NZ volunteers manage their applicants.
 
 1. Tests with cucumber?
 1. Profile images
+
+# Install
+
+Login to your [Google Developers Console](https://console.developers.google.com/project), create a new Project, and:
+
+# APIs: enable Contacts API and Google+ API
+# Consent screen: make sure you have an email and product name specified
+# Credentials: create a new Client ID of type web applicaton, setting your Redirect URI to http://localhost:3000/auth/google_login/callback
+
+Edit .env with your new keys.

@@ -32,6 +32,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Google OAuth2 with Ruby on Rails
+# http://www.jevon.org/wiki/Google_OAuth2_with_Ruby_on_Rails
+gem 'haml'
+gem 'dotenv-rails'
+gem 'figaro'
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'         # necessary for Rails 4+
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
