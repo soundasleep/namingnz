@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.2.0
+services:
+  - mysql
+before_script:
+  - mysql -e 'create database namingnz_test;'
