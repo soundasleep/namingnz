@@ -1,0 +1,7 @@
+= form_for @applicant, url: {action: "create"} do |f|
+  %p
+    = f.label :nickname
+    = f.text_field :nickname
+
+  %p
+    = f.submit

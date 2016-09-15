@@ -20,7 +20,8 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Signed out!"
+    flash[:notice] = "Signed out!"
+    redirect_to root_url
   end
 
   private
@@ -31,7 +32,7 @@ class SessionsController < ApplicationController
 
     if user.save
       session[:user_id] = user.id
-      notice = "Signed in!"
+      flash[:notice] = "Signed in!"
 
       url = return_to || default_login_url(user)
       url = root_path if url.eql?('/logout')

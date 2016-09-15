@@ -1,5 +1,4 @@
-Feature: Helpers can see a useful dashboard
-
+Feature: Team members can see a useful dashboard
   Scenario: I'm not assigned to anybody
     When I log in as a team member
     Then I should see "Hi Team member!"

@@ -1,0 +1,11 @@
+%table.applicants
+  %thead
+    %tr
+      %th Nickname
+
+  %tbody
+    - @applicants.each do |applicant|
+      %tr
+        %td= link_to(applicant.nickname, applicant_path(applicant))
+
+= link_to "New applicant", new_applicant_path

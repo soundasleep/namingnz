@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title Simple Backend Example
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tag
+
+  %body
+    %header#navigation
+      - if current_user
+        %ul.navigation
+          %li
+            Signed in as #{current_user.name}
+          %li
+            = link_to "Sign out", signout_path
+          %li
+            = link_to "Applicants", applicants_path
+
+      - else
+        = link_to "Sign in with Google", "/auth/google_login"
+
+    - flash.each do |name, message|
+      %div{class: name}
+        = message
+
+    #content
+      = yield
+
+    %footer
+

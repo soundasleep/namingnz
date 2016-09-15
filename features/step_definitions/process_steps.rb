@@ -17,3 +17,12 @@ end
 Given(/^cheques expire in (\d+) days$/) do |days|
   expect(NamingNZ.cheques_expire_in_days).to eq(days.to_i)
 end
+
+When(/^I create a new applicant$/) do
+  steps %Q{
+    And I click "Applicants"
+    And I click "New applicant"
+    And I set "Nickname" to "New applicant"
+    And I click the "Create Applicant" button
+  }
+end
