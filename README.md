@@ -11,6 +11,7 @@ Tools to help Naming NZ volunteers manage their applicants.
 1. /helpers
 1. /groups
 1. /cheques
+1. Email reminders to helpers
 
 # TODO nice to have
 
@@ -27,3 +28,8 @@ Login to your [Google Developers Console](https://console.developers.google.com/
 # Credentials: create a new Client ID of type web applicaton, setting your Redirect URI to http://localhost:3000/auth/google_login/callback
 
 Edit .env with your new keys.
+
+# Testing
+
+`rake rspec`
+`rake cucumber`

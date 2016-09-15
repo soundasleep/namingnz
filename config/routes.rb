@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
+  get "/sessions/login_as" if Rails.env.test?
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

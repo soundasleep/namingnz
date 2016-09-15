@@ -7,6 +7,25 @@ class SessionsController < ApplicationController
       :expires => auth["credentials"]["expires_at"],
       :name => auth["info"]["name"],
     )
+
+    complete_login(user)
+  end
+
+  def login_as
+    raise "Not supported outside of test" unless Rails.env.test?
+
+    user = User.find(params[:user_id])
+    complete_login(user)
+  end
+
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_url, :notice => "Signed out!"
+  end
+
+  private
+
+  def complete_login(user)
     url = session[:return_to] || root_path
     session[:return_to] = nil
     url = root_path if url.eql?('/logout')
@@ -19,10 +38,5 @@ class SessionsController < ApplicationController
     else
       raise "Failed to login"
     end
-  end
-
-  def destroy
-    session[:user_id] = nil
-    redirect_to root_url, :notice => "Signed out!"
   end
 end
