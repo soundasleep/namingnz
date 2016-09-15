@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def must_be_team_member
+    redirect_to home_pending_path unless current_user.team_member?
+  end
+
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end

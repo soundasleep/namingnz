@@ -1,0 +1,12 @@
+%h1
+  = applicant_link(@applicant)
+  >
+  New application
+
+= form_for @application, url: {action: "create"} do |f|
+  %p
+    = f.label :category
+    = f.text_field :category
+
+  %p
+    = f.submit

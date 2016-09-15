@@ -1,3 +1,9 @@
 %h1
   = @applicant.nickname
   %small= link_to "(edit nickname)", edit_applicant_path(@applicant)
+
+%ul.applications
+  - @applicant.applications.each do |application|
+    %li= application
+
+  %li= link_to "New application", new_applicant_application_path(@applicant)

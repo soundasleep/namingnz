@@ -1,0 +1,14 @@
+%h1
+  All users >
+  = user_link(@user)
+
+%h2 Team members
+
+%ul.team_members
+  - @user.team_members.each do |team_member|
+    %li.team_member
+      = team_member_link(team_member)
+
+  %li
+    = link_to "Promote to team member", new_team_member_path(user_id: @user.id)
+

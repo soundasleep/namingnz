@@ -1,12 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Application, type: :model do
-  let(:team_member) { TeamMember.create! name: "Test", email: "test@example.com", phone: "0" }
+  let(:user) { User.create! }
+  let(:team_member) { user.team_members.create! name: "Test", email: "test@example.com", phone: "0" }
   let(:applicant) { Applicant.create! nickname: "Test" }
 
   before do
-    @first = applicant.applications.create! category: "first"
-    @second = applicant.applications.create! category: "second"
+    @first = applicant.applications.create! category: "name change"
+    @second = applicant.applications.create! category: "name change"
   end
 
   # TODO likely that this could be refactored into a concern or module?

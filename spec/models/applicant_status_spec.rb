@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe ApplicantStatus, type: :model do
+  let(:user) { User.create! }
+  let(:team_member) { user.team_members.create name: "Team member", email: "test@example.com", phone: "0" }
   let(:applicant) { Applicant.create nickname: "Test" }
-  let(:team_member) { TeamMember.create name: "Team member", email: "test@example.com", phone: "0" }
 
   describe "validation on #status" do
     subject { ApplicantStatus.create applicant: applicant, team_member: team_member, status: status }

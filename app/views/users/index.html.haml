@@ -1,0 +1,17 @@
+%h1 All users
+
+%ul.users
+  - @users.each do |user|
+    %li
+      = user_link(user)
+
+      - if user.team_members.any?
+        is a team member:
+
+        - user.team_members.each do |team_member|
+          = team_member_link(team_member)
+      - else
+        %i is not a team member
+
+        = link_to "Promote to team member", new_team_member_path(user_id: user.id)
+

@@ -1,0 +1,25 @@
+%h1 New team member
+
+= form_for @team_member, url: {action: "create"} do |f|
+  %p
+    = f.label :user
+    = f.select :user_id, User.all.map { |u| [u.to_s, u.id] }
+
+  %p
+    = f.label :name
+    = f.text_field :name
+
+  %p
+    = f.label :email
+    = f.text_field :email
+
+  %p
+    = f.label :phone
+    = f.text_field :phone
+
+  %p
+    Promoted by
+    = user_link(current_user)
+
+  %p
+    = f.submit

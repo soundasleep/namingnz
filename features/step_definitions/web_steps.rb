@@ -2,11 +2,8 @@ When(/^I visit (\/.*)$/) do |path|
   visit(path)
 end
 
-When(/^I visit the home page$/) do
-  step 'I visit /'
-end
-
 When(/^I click "([^"]*)"$/) do |text|
+  expect(page).to have_content(text)
   click_link(text)
 end
 

@@ -26,3 +26,11 @@ When(/^I create a new applicant$/) do
     And I click the "Create Applicant" button
   }
 end
+
+Then(/^I create a new name change application for the applicant$/) do
+  steps %Q{
+    And I click "New application"
+    And I set "Category" to "name change"
+    And I click the "Create Application" button
+  }
+end

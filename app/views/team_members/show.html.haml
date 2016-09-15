@@ -1,0 +1,23 @@
+%h1
+  Team members >
+  = team_member_link(@team_member)
+
+%p
+  Name
+  = @team_member.name
+
+%p
+  Email
+  = @team_member.email
+
+%p
+  Phone
+  = @team_member.phone
+
+%p
+  User
+  = user_link(@team_member.user)
+
+%p
+  Promoted by
+  = user_link(@team_member.promoted_by)

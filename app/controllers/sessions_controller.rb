@@ -45,10 +45,10 @@ class SessionsController < ApplicationController
   end
 
   def default_login_url(user)
-    if user.team_members.any?
+    if user.team_member?
       dashboard_team_member_path(user.team_members.first)
     else
-      root_path
+      home_pending_path
     end
   end
 end

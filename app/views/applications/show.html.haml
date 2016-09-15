@@ -1,0 +1,17 @@
+%h1
+  = applicant_link(@applicant)
+  >
+  = @application.category
+
+%p
+  Assigned to
+  - if @application.team_member
+    = team_member_link(@application.team_member)
+  - else
+    %i nobody
+
+  = form_for [@applicant, @application], url: {action: "assign"}, method: :patch do |f|
+    Assign to
+    = f.select :team_member, TeamMember.all
+
+    = f.submit

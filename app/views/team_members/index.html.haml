@@ -1,0 +1,5 @@
+%h1 All team members
+
+%ul.team_members
+  - @team_members.each do |team_member|
+    %li= team_member_link(team_member)

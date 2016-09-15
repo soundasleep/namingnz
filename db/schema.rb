@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915040313) do
+ActiveRecord::Schema.define(version: 20160915232046) do
 
   create_table "applicant_statuses", force: :cascade do |t|
     t.integer  "team_member_id", limit: 4,   null: false
@@ -85,12 +85,13 @@ ActiveRecord::Schema.define(version: 20160915040313) do
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "team_members", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255, null: false
-    t.string   "email",      limit: 255, null: false
-    t.string   "phone",      limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "user_id",        limit: 4
+    t.string   "name",           limit: 255, null: false
+    t.string   "email",          limit: 255, null: false
+    t.string   "phone",          limit: 255, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "promoted_by_id", limit: 4
   end
 
   add_index "team_members", ["user_id"], name: "index_team_members_on_user_id", using: :btree

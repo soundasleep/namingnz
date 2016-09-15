@@ -1,4 +1,6 @@
 class ApplicantsController < ApplicationController
+  before_filter :must_be_team_member
+
   def index
     @applicants = Applicant.all
   end

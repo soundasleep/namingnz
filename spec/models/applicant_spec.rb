@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Applicant, type: :model do
-  let(:team_member) { TeamMember.create! name: "Test", email: "test@example.com", phone: "0" }
+  let(:user) { User.create! }
+  let(:team_member) { user.team_members.create! name: "Test", email: "test@example.com", phone: "0" }
 
   before do
     @first = Applicant.create! nickname: "first"

@@ -1,9 +1,15 @@
 class Application < ActiveRecord::Base
+  NAME_CHANGE = "name change"
+
+  VALID_CATEGORIES = [NAME_CHANGE]
+
   belongs_to :applicant
+  belongs_to :team_member
 
   has_many :cheques, dependent: :nullify
 
   validates :applicant, presence: true
+  validates :category, inclusion: { in: VALID_CATEGORIES }
 
   # TODO likely that this could be refactored into a concern or module?
   has_many :application_statuses, dependent: :destroy
