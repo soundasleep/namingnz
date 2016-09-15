@@ -4,6 +4,8 @@ class Applicant < ActiveRecord::Base
   has_many :applicant_statuses, dependent: :destroy
   has_one :latest_status, class_name: "ApplicantStatus"
 
+  has_many :applications, dependent: :destroy
+
   scope :latest_statuses, -> { joins("JOIN applicant_statuses ON applicant_statuses.id = applicants.latest_status_id" ) }
 
   scope :active, -> { where("id NOT IN (?)", completed.empty? ? "" : completed.map(&:id)) }

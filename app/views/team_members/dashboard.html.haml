@@ -4,13 +4,13 @@
   You are helping
 
   - if @team_member.applicants.active.any?
-    = pluralize(@team_member.applicants.active.count, "people")
+    = pluralize(@team_member.applicants.active.count, "person")
   - else
     nobody
 
   - if @team_member.applicants.completed.any?
     and have helped
-    = pluralize(@team_member.applicants.completed.count, "people")
+    = pluralize(@team_member.applicants.completed.count, "person")
 
 %h2 Warnings
 
