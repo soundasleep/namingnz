@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
+  resources :applicants
   root 'home#index'
 
   get "/auth/google_login/callback" => "sessions#create"
   get "/signout" => "sessions#destroy", :as => :signout
 
   get "/sessions/login_as" if Rails.env.test?
+
+  resources :team_members, only: [:index, :show, :edit, :update] do
+    member do
+      get "dashboard"
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

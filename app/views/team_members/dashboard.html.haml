@@ -1,0 +1,18 @@
+%h1 Hi #{@team_member.name}!
+
+%p
+  You are helping
+
+  - if @team_member.applicants.active.any?
+    = pluralize(@team_member.applicants.active.count, "people")
+  - else
+    nobody
+
+  - if @team_member.applicants.completed.any?
+    and have helped
+    = pluralize(@team_member.applicants.completed.count, "people")
+
+%h2 Warnings
+
+%p TODO
+

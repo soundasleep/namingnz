@@ -26,17 +26,28 @@ class SessionsController < ApplicationController
   private
 
   def complete_login(user)
-    url = session[:return_to] || root_path
+    return_to = session[:return_to]
     session[:return_to] = nil
-    url = root_path if url.eql?('/logout')
 
     if user.save
       session[:user_id] = user.id
       notice = "Signed in!"
+
+      url = return_to || default_login_url(user)
+      url = root_path if url.eql?('/logout')
       logger.debug "URL to redirect to: #{url}"
+
       redirect_to url, :notice => notice
     else
       raise "Failed to login"
+    end
+  end
+
+  def default_login_url(user)
+    if user.team_members.any?
+      dashboard_team_member_path(user.team_members.first)
+    else
+      root_path
     end
   end
 end

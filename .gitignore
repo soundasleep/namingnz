@@ -14,3 +14,4 @@
 
 # Ignore private data
 .env
+.byebug_history
