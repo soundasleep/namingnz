@@ -8,6 +8,8 @@ RSpec.describe Applicant, type: :model do
     @second = Applicant.create! nickname: "second"
   end
 
+  # TODO likely that this could be refactored into a concern or module?
+
   context "neither applicant has statues" do
     describe "#active" do
       it "there is two" do

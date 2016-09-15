@@ -14,5 +14,11 @@
 
 %h2 Warnings
 
-%p TODO
+%ul.warnings
 
+- @warnings.each do |warning|
+  %li.warning
+    = warning.description
+    = warning.applicant
+    = warning.application
+    = warning.cheque

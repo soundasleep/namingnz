@@ -25,5 +25,5 @@ Feature: Helpers can see a useful dashboard
     Then I should see "Hi Team member!"
     And I should see "You are helping 1 person"
     And I should see 1 warning
-    And I should see "Applicant hasn't cashed in their cheque for name change"
+    And I should see "Applicant hasn't cashed in their cheque for their name change"
     And I should see "Their cheque will expire in 10 days"

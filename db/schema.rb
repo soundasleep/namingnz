@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915034331) do
+ActiveRecord::Schema.define(version: 20160915040313) do
 
   create_table "applicant_statuses", force: :cascade do |t|
     t.integer  "team_member_id", limit: 4,   null: false
@@ -35,14 +35,44 @@ ActiveRecord::Schema.define(version: 20160915034331) do
   add_index "applicants", ["latest_status_id"], name: "index_applicants_on_latest_status_id", using: :btree
   add_index "applicants", ["team_member_id"], name: "index_applicants_on_team_member_id", using: :btree
 
+  create_table "application_statuses", force: :cascade do |t|
+    t.integer  "application_id", limit: 4,     null: false
+    t.integer  "team_member_id", limit: 4,     null: false
+    t.string   "status",         limit: 255,   null: false
+    t.string   "contact_method", limit: 255
+    t.string   "contact_detail", limit: 255
+    t.text     "content",        limit: 65535
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "application_statuses", ["application_id"], name: "index_application_statuses_on_application_id", using: :btree
+  add_index "application_statuses", ["team_member_id"], name: "index_application_statuses_on_team_member_id", using: :btree
+
   create_table "applications", force: :cascade do |t|
-    t.string   "category",     limit: 255
-    t.integer  "applicant_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "applicant_id",     limit: 4,   null: false
+    t.string   "category",         limit: 255, null: false
+    t.integer  "latest_status_id", limit: 4
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   add_index "applications", ["applicant_id"], name: "index_applications_on_applicant_id", using: :btree
+  add_index "applications", ["latest_status_id"], name: "index_applications_on_latest_status_id", using: :btree
+
+  create_table "cheques", force: :cascade do |t|
+    t.integer  "team_member_id", limit: 4,                  null: false
+    t.integer  "application_id", limit: 4,                  null: false
+    t.decimal  "amount",                     precision: 10, null: false
+    t.string   "payee",          limit: 255,                null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.datetime "spent_at"
+    t.datetime "cancelled_at"
+  end
+
+  add_index "cheques", ["application_id"], name: "index_cheques_on_application_id", using: :btree
+  add_index "cheques", ["team_member_id"], name: "index_cheques_on_team_member_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255,   null: false
@@ -79,6 +109,10 @@ ActiveRecord::Schema.define(version: 20160915034331) do
   add_foreign_key "applicant_statuses", "applicants"
   add_foreign_key "applicant_statuses", "team_members"
   add_foreign_key "applicants", "team_members"
+  add_foreign_key "application_statuses", "applications"
+  add_foreign_key "application_statuses", "team_members"
   add_foreign_key "applications", "applicants"
+  add_foreign_key "cheques", "applications"
+  add_foreign_key "cheques", "team_members"
   add_foreign_key "team_members", "users"
 end
