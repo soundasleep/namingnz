@@ -24,13 +24,14 @@ Tools to help Naming NZ volunteers manage their applicants.
 
 Login to your [Google Developers Console](https://console.developers.google.com/project), create a new Project, and:
 
-# APIs: enable Contacts API and Google+ API
-# Consent screen: make sure you have an email and product name specified
-# Credentials: create a new Client ID of type web applicaton, setting your Redirect URI to http://localhost:3000/auth/google_login/callback
+1. APIs: enable Contacts API and Google+ API
+1. Consent screen: make sure you have an email and product name specified
+1. Credentials: create a new Client ID of type web applicaton, setting your Redirect URI to http://localhost:3000/auth/google_login/callback
 
-Edit .env with your new keys.
+Edit `.env` with your new keys, and `database.yml` with your database configuration. Run `rake db:migrate` to setup the database.
 
 # Testing
 
-`rake rspec`
+`bundle exec rspec`
+
 `rake cucumber`
