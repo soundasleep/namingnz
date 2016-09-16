@@ -16,6 +16,8 @@
             = link_to "Sign out", signout_path
           - if current_user.team_member?
             %li
+              = link_to "Your dashboard", dashboard_team_member_path(current_user.team_members.first)
+            %li
               = link_to "Team members", team_members_path
             %li
               = link_to "Users", users_path
