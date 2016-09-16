@@ -10,8 +10,4 @@
   - else
     %i nobody
 
-  = form_for [@applicant, @application], url: {action: "assign"}, method: :patch do |f|
-    Assign to
-    = f.select :team_member, TeamMember.all
-
-    = f.submit
+  = link_to "Modify assignment", @applicant

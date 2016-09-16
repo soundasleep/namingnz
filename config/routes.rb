@@ -18,10 +18,11 @@ Rails.application.routes.draw do
   end
 
   resources :applicants, only: [:index, :show, :edit, :create, :update, :new] do
+    member do
+      patch "assign"
+    end
+
     resources :applications, only: [:show, :new, :create] do
-      member do
-        patch "assign"
-      end
     end
   end
 

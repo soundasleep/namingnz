@@ -6,7 +6,7 @@
 = form_for @application, url: {action: "create"} do |f|
   %p
     = f.label :category
-    = f.text_field :category
+    = f.select :category, Application::VALID_CATEGORIES
 
   %p
     = f.submit

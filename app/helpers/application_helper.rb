@@ -3,6 +3,10 @@ module ApplicationHelper
     link_to(applicant.nickname, applicant_path(applicant))
   end
 
+  def application_link(application)
+    link_to(application.category, applicant_application_path(application.applicant, application))
+  end
+
   def team_member_link(team_member)
     link_to(team_member.name, team_member_path(team_member))
   end

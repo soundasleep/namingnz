@@ -9,4 +9,8 @@ class TeamMember < ActiveRecord::Base
   validates :email, presence: :true
   validates :phone, presence: :true
   validates :user, presence: :true
+
+  def to_s
+    "#{name} (#{email})"
+  end
 end

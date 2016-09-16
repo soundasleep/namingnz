@@ -10,9 +10,11 @@ Feature: Applicants apply for funds
     And I create a new name change application for the applicant
     Then I should see "Application for name change created"
 
-    # When I assign the applicant to myself
-    # And I log in as a team member
-    # Then I should see "Hi Admin team member!"
-    # And I should see "You are helping 1 person"
+    When I assign the applicant to myself
+    Then I should see "Assigned to Admin team member"
+
+    And I log in as a team member
+    Then I should see "Hi Admin team member!"
+    And I should see "You are helping 1 person"
 
   # TODO scenarios for editing nicknames

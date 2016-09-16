@@ -19,6 +19,7 @@ Tools to help Naming NZ volunteers manage their applicants.
 1. Profile images
 1. /users
 1. Users can be disabled (`disabled_at`)
+1. Screenshots in readme
 
 # Install
 

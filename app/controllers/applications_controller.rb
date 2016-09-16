@@ -10,6 +10,7 @@ class ApplicationsController < ApplicationController
     @applicant = find_applicant
     @application = @applicant.applications.new application_params
     @application.save!
+
     flash[:notice] = "Application for #{@application.category} created"
     redirect_to [@applicant, @application]
   end

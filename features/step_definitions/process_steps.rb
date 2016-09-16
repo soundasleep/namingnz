@@ -34,3 +34,11 @@ Then(/^I create a new name change application for the applicant$/) do
     And I click the "Create Application" button
   }
 end
+
+When(/^I assign the applicant to myself$/) do
+  steps %Q{
+    Then I click "Modify assignment"
+    Then I set "applicant[team_member_id]" to "#{new_team_member.id}"
+    Then I click the "Update Applicant" button
+  }
+end

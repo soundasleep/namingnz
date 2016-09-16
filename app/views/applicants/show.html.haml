@@ -4,6 +4,21 @@
 
 %ul.applications
   - @applicant.applications.each do |application|
-    %li= application
+    %li
+      = application_link(application)
 
   %li= link_to "New application", new_applicant_application_path(@applicant)
+
+%p
+  Assigned to
+  - if @applicant.team_member
+    = team_member_link(@applicant.team_member)
+  - else
+    %i nobody
+
+  = form_for @applicant, url: {action: "assign"}, method: :patch do |f|
+    Assign to
+    = f.label :team_member
+    = f.select :team_member_id, TeamMember.all.map { |u| [u.to_s, u.id] }
+
+    = f.submit

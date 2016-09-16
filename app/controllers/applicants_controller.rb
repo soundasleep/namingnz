@@ -12,12 +12,23 @@ class ApplicantsController < ApplicationController
   def create
     @applicant = Applicant.new applicant_params
     @applicant.save!
+
     flash[:notice] = "Applicant created"
     redirect_to @applicant
   end
 
   def show
     @applicant = Applicant.find params[:id]
+  end
+
+  def assign
+    applicant = Applicant.find params[:id]
+    team_member = TeamMember.find(params[:applicant][:team_member_id])
+    applicant.team_member = team_member
+    applicant.save!
+
+    flash[:notice] = "Applicant assigned to #{team_member}"
+    redirect_to applicant
   end
 
   private
