@@ -14,13 +14,13 @@
     and have helped
     = pluralize(@team_member.applicants.completed.count, "person")
 
-%h2 Warnings
+- if @warnings.any?
+  %h2 Warnings
 
-%ul.warnings
-
-- @warnings.each do |warning|
-  %li.warning
-    = warning.description
-    = warning.applicant
-    = warning.application
-    = warning.cheque
+  %ul.warnings
+  - @warnings.each do |warning|
+    %li.warning
+      = warning.description
+      = warning.applicant
+      = warning.application
+      = warning.cheque

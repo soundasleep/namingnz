@@ -15,5 +15,7 @@ class ApplicationStatus < ActiveRecord::Base
   belongs_to :application
   belongs_to :team_member
 
+  has_many :application_status_notes, dependent: :destroy
+
   validates :status, inclusion: { in: VALID_STATUSES }
 end

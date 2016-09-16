@@ -13,6 +13,19 @@ class ApplicantsController < ApplicationController
     @applicant = Applicant.new applicant_params
     @applicant.save!
 
+    # Create a new ApplicantStatus
+    status = @applicant.applicant_statuses.create! status: ApplicantStatus::NEW, team_member: current_team_member
+    status.applicant_status_notes.create! content: params[:notes], team_member: current_team_member
+
+    # And create new Applications for each possible Application
+    Application::VALID_CATEGORIES.each do |category|
+      if params[:categories] && params[:categories][category]
+        application = @applicant.applications.create! category: category
+
+        status = application.application_statuses.create! status: ApplicationStatus::NEW, team_member: current_team_member
+      end
+    end
+
     flash[:notice] = "Applicant created"
     redirect_to @applicant
   end
@@ -34,6 +47,6 @@ class ApplicantsController < ApplicationController
   private
 
   def applicant_params
-    params.require(:applicant).permit(:nickname)
+    params.require(:applicant).permit(:nickname, :form_details)
   end
 end

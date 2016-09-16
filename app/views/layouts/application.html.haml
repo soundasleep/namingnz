@@ -17,6 +17,9 @@
           - if current_user.team_member?
             %li
               = link_to "Your dashboard", dashboard_team_member_path(current_user.team_members.first)
+              - if current_team_member
+                as
+                = team_member_link(current_team_member)
             %li
               = link_to "Team members", team_members_path
             %li

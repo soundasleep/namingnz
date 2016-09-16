@@ -22,3 +22,19 @@
     = f.select :team_member_id, TeamMember.all.map { |u| [u.to_s, u.id] }
 
     = f.submit
+
+%h2 Form details
+
+%pre= @applicant.form_details
+
+%h2 Latest notes
+
+%ul.notes
+  - @applicant.latest_notes.each do |note|
+    %li
+      %i #{note.content}
+      - if note.team_member.present?
+        %span - #{team_member_link(note.team_member)}
+      - else
+        %span - from nobody
+

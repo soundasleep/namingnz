@@ -20,9 +20,9 @@ end
 
 When(/^I create a new applicant$/) do
   steps %Q{
-    And I click "Applicants"
+    And I visit the list of applicants
     And I click "New applicant"
-    And I set "Nickname" to "New applicant"
+    And I set "applicant[nickname]" to "New applicant"
     And I click the "Create Applicant" button
   }
 end

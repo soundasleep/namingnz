@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915232046) do
+ActiveRecord::Schema.define(version: 20160916015033) do
+
+  create_table "applicant_status_notes", force: :cascade do |t|
+    t.integer  "applicant_status_id", limit: 4
+    t.text     "content",             limit: 65535
+    t.integer  "team_member_id",      limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  add_index "applicant_status_notes", ["applicant_status_id"], name: "index_applicant_status_notes_on_applicant_status_id", using: :btree
+  add_index "applicant_status_notes", ["team_member_id"], name: "index_applicant_status_notes_on_team_member_id", using: :btree
 
   create_table "applicant_statuses", force: :cascade do |t|
     t.integer  "team_member_id", limit: 4,   null: false
@@ -28,12 +39,24 @@ ActiveRecord::Schema.define(version: 20160915232046) do
     t.integer  "team_member_id",   limit: 4
     t.integer  "latest_status_id", limit: 4
     t.string   "nickname",         limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.text     "form_details",     limit: 65535
   end
 
   add_index "applicants", ["latest_status_id"], name: "index_applicants_on_latest_status_id", using: :btree
   add_index "applicants", ["team_member_id"], name: "index_applicants_on_team_member_id", using: :btree
+
+  create_table "application_status_notes", force: :cascade do |t|
+    t.integer  "application_status_id", limit: 4
+    t.text     "content",               limit: 65535
+    t.integer  "team_member_id",        limit: 4
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "application_status_notes", ["application_status_id"], name: "index_application_status_notes_on_application_status_id", using: :btree
+  add_index "application_status_notes", ["team_member_id"], name: "index_application_status_notes_on_team_member_id", using: :btree
 
   create_table "application_statuses", force: :cascade do |t|
     t.integer  "application_id", limit: 4,     null: false
@@ -107,9 +130,13 @@ ActiveRecord::Schema.define(version: 20160915232046) do
     t.datetime "updated_at",                null: false
   end
 
+  add_foreign_key "applicant_status_notes", "applicant_statuses"
+  add_foreign_key "applicant_status_notes", "team_members"
   add_foreign_key "applicant_statuses", "applicants"
   add_foreign_key "applicant_statuses", "team_members"
   add_foreign_key "applicants", "team_members"
+  add_foreign_key "application_status_notes", "application_statuses"
+  add_foreign_key "application_status_notes", "team_members"
   add_foreign_key "application_statuses", "applications"
   add_foreign_key "application_statuses", "team_members"
   add_foreign_key "applications", "applicants"

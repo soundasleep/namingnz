@@ -4,4 +4,20 @@
     = f.text_field :nickname
 
   %p
+    Copy and paste the completed form details here:
+    = f.label :form_details
+    = f.text_area :form_details
+
+  %p
+    The applicant has applied for:
+    - Application::VALID_CATEGORIES.each do |category|
+      %label
+        = check_box_tag("categories[#{category}]")
+        = category
+
+  %p
+    Notes
+    = text_area_tag :notes
+
+  %p
     = f.submit

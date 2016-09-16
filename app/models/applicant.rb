@@ -3,6 +3,8 @@ class Applicant < ActiveRecord::Base
 
   has_many :applications, dependent: :destroy
 
+  validates :nickname, presence: :true
+
   # TODO likely that this could be refactored into a concern or module?
   has_many :applicant_statuses, dependent: :destroy
   has_one :latest_status, class_name: "ApplicantStatus"
@@ -18,4 +20,7 @@ class Applicant < ActiveRecord::Base
   end
   # TODO end refactor
 
+  def latest_notes
+    applicant_statuses.map(&:applicant_status_notes).flatten.reject { |note| note.content.empty? }
+  end
 end
