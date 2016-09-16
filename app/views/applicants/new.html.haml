@@ -10,10 +10,12 @@
 
   %p
     The applicant has applied for:
-    - Application::VALID_CATEGORIES.each do |category|
-      %label
-        = check_box_tag("categories[#{category}]")
-        = category
+    %ul.applications
+      - Application::VALID_CATEGORIES.each do |category|
+        %li.application
+          %label
+            = check_box_tag("categories[#{category}]")
+            = category
 
   %p
     Notes

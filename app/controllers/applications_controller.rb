@@ -11,6 +11,8 @@ class ApplicationsController < ApplicationController
     @application = @applicant.applications.new application_params
     @application.save!
 
+    @application.update_status! status: ApplicationStatus::NEW, team_member: current_team_member, notes: params[:notes]
+
     flash[:notice] = "Application for #{@application.category} created"
     redirect_to [@applicant, @application]
   end

@@ -24,3 +24,12 @@
       = warning.applicant
       = warning.application
       = warning.cheque
+
+- if @team_member.applicants.active.any?
+  %h2 Your applicants
+
+  %ul.applicants
+    - @team_member.applicants.active.each do |applicant|
+      %li.applicant
+        = applicant_link(applicant)
+        = applicant_status_link(applicant.latest_status)

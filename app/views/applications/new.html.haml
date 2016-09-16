@@ -9,4 +9,8 @@
     = f.select :category, Application::VALID_CATEGORIES
 
   %p
+    Notes
+    = text_area_tag :notes
+
+  %p
     = f.submit

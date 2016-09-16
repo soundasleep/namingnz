@@ -2,13 +2,29 @@
   All users >
   = user_link(@user)
 
-%h2 Team members
 
-%ul.team_members
-  - @user.team_members.each do |team_member|
-    %li.team_member
-      = team_member_link(team_member)
+%table
+  %tr
+    %th Name
+    %td= @user.name
 
-  %li
-    = link_to "Promote to team member", new_team_member_path(user_id: @user.id)
+  %tr
+    %th Provider
+    %td= @user.provider
+
+  %tr
+    %th Created at
+    %td= @user.created_at
+
+  %tr
+    %th Team members
+    %td
+      %ul.team_members
+        - @user.team_members.each do |team_member|
+          %li.team_member
+            = team_member_link(team_member)
+
+        - if @user.team_members.empty?
+          %li
+            = link_to "Promote to team member", new_team_member_path(user_id: @user.id)
 

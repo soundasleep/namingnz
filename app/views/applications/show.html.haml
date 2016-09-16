@@ -11,4 +11,22 @@
   - else
     %i nobody
 
+%p
   = link_to "Modify assignment", @applicant
+
+%h2 Latest statuses
+
+%ul.applicant_statuses
+- @application.application_statuses.ordered.each do |status|
+  %li
+    = application_status_link(status)
+    at
+    = status.created_at
+
+    %span.notes
+      - status.application_status_notes.each do |note|
+        %i #{note.content}
+        - if note.team_member.present?
+          %span - #{team_member_link(note.team_member)}
+        - else
+          %span - from nobody

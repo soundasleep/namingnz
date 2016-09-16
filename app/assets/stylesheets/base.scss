@@ -1,5 +1,100 @@
+@import 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700';
+
 textarea {
   min-width: 50%;
   min-height: 300px;
   display: block;
+}
+
+html, body {
+  font-family: 'Droid Serif', serif;
+  font-size: 1rem;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 1rem;
+  padding: 0;
+}
+
+$pink: #FF6FDA;
+$purple: #B065E8;
+$dark-blue: #7D7CFF;
+$blue: #65ABE8;
+$cyan: #7EFFF4;
+
+#navigation {
+  text-align: center;
+
+  ul.navigation {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 0.5rem;
+      background: lighten($blue, 30%);
+      border: 1px solid $blue;
+
+      &:hover {
+        background: lighten($blue, 20%);
+      }
+    }
+  }
+}
+
+#content {
+  margin: 1rem;
+}
+
+.notice {
+  margin: 1rem auto;
+  width: 60%;
+  background: lighten($purple, 30%);
+  padding: 1rem;
+  border: 1px solid $purple;
+}
+
+h1 {
+  small {
+    font-size: 60%;
+  }
+}
+
+.status {
+  display: inline-block;
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.1rem 0.3rem;
+
+  &.new, &.accepted {
+    background: #cfc;
+    border: 1px solid #9c9;
+  }
+
+  &.progress {
+    background: #ffc;
+    border: 1px solid #cc9;
+  }
+
+  &.declined {
+    background: #fcc;
+    border: 1px solid #c99;
+  }
+}
+
+pre {
+  background: #eee;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+th {
+  text-align: left;
 }

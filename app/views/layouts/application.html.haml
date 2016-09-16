@@ -8,10 +8,8 @@
 
   %body
     %header#navigation
-      - if current_user
-        %ul.navigation
-          %li
-            Signed in as #{current_user.name}
+      %ul.navigation
+        - if current_user
           %li
             = link_to "Sign out", signout_path
           - if current_user.team_member?
@@ -27,8 +25,9 @@
             %li
               = link_to "Applicants", applicants_path
 
-      - else
-        = link_to "Sign in with Google", "/auth/google_login"
+        - else
+          %li
+            = link_to "Sign in with Google", "/auth/google_login"
 
     - flash.each do |name, message|
       %div{class: name}

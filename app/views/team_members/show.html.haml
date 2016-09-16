@@ -2,28 +2,34 @@
   Team members >
   = team_member_link(@team_member)
 
-%p
-  Name
-  = @team_member.name
+%table
+  %tr
+    %th Name
+    %td= @team_member.name
 
-%p
-  Email
-  = @team_member.email
+  %tr
+    %th Email
+    %td= @team_member.email
 
-%p
-  Phone
-  = @team_member.phone
+  %tr
+    %th Phone
+    %td= @team_member.phone
 
-%p
-  User
-  = user_link(@team_member.user)
+  %tr
+    %th User
+    %td= user_link(@team_member.user)
 
-%p
-  Promoted by
-  - if @team_member.promoted_by
-    = user_link(@team_member.promoted_by)
-  - else
-    %i nobody!
+  %tr
+    %th Created at
+    %td= @team_member.created_at
+
+  %tr
+    %th Promoted by
+    %td
+      - if @team_member.promoted_by
+        = user_link(@team_member.promoted_by)
+      - else
+        %i nobody!
 
 %p
   = link_to "Edit profile", edit_team_member_path(@team_member)

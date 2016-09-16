@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def applicant_status_link(applicant_status)
     if applicant_status.present?
-      applicant_status.status
+      content_tag "span", applicant_status.status, class: "status applicant-status #{applicant_status.status}"
     else
       content_tag "i", "-"
     end
@@ -29,7 +29,7 @@ module ApplicationHelper
 
   def application_status_link(application_status)
     if application_status.present?
-      application_status.status
+      content_tag "span", application_status.status, class: "status application-status #{application_status.status}"
     else
       content_tag "i", "-"
     end
