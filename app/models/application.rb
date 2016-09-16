@@ -1,16 +1,31 @@
 class Application < ActiveRecord::Base
   NAME_CHANGE = "name change"
+  DRIVERS_LICENSE = "NZ drivers license"
+  BIRTH_CERTIFICATE_CHANGE = "NZ birth certificate change"
+  BIRTH_CERTIFICATE_COPIES = "NZ birth certificate copies"
+  INTL_BIRTH_CERTIFICATE_CHANGE = "International birth certificate change"
+  PASSPORT_NEW = "new NZ passport"
+  PASSPORT_CHANGE = "NZ passport change"
+  INTL_PASSPORT_CHANGE = "international passport change"
+  UNIVERSITY_ID = "university ID"
+  SCHOOL_ID = "school ID"
+  OTHER = "other"
 
-  VALID_CATEGORIES = [NAME_CHANGE]
+  VALID_CATEGORIES = [NAME_CHANGE, DRIVERS_LICENSE,
+    BIRTH_CERTIFICATE_CHANGE, BIRTH_CERTIFICATE_COPIES,
+    INTL_BIRTH_CERTIFICATE_CHANGE, PASSPORT_NEW, PASSPORT_CHANGE,
+    INTL_PASSPORT_CHANGE, INTL_PASSPORT_CHANGE, UNIVERSITY_ID,
+    SCHOOL_ID, OTHER]
 
   belongs_to :applicant
-  belongs_to :team_member
 
   has_many :cheques, dependent: :nullify
   has_many :votes, dependent: :destroy
 
   validates :applicant, presence: true
   validates :category, inclusion: { in: VALID_CATEGORIES }
+
+  delegate :team_member, to: :applicant
 
   # TODO likely that this could be refactored into a concern or module?
   has_many :application_statuses, dependent: :destroy

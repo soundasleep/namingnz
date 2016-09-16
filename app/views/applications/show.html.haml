@@ -2,6 +2,7 @@
   = applicant_link(@applicant)
   >
   = @application.category
+  %small= application_status_link(@application.latest_status)
 
 %p
   Assigned to

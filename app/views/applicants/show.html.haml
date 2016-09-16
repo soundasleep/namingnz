@@ -46,7 +46,9 @@
 
   %dl.application_votes
   - @applicant.applications.each do |application|
-    %dt= application_link(application)
+    %dt
+      = application_link(application)
+      = application_status_link(application.latest_status)
     %dd
       %ul.votes
         - application.votes.each do |vote|

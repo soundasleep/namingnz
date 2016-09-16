@@ -26,4 +26,12 @@ module ApplicationHelper
       content_tag "i", "-"
     end
   end
+
+  def application_status_link(application_status)
+    if application_status.present?
+      application_status.status
+    else
+      content_tag "i", "-"
+    end
+  end
 end
