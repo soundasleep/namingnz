@@ -20,4 +20,10 @@
 
 %p
   Promoted by
-  = user_link(@team_member.promoted_by)
+  - if @team_member.promoted_by
+    = user_link(@team_member.promoted_by)
+  - else
+    %i nobody!
+
+%p
+  = link_to "Edit profile", edit_team_member_path(@team_member)

@@ -8,7 +8,8 @@ class ApplicationController < ActionController::Base
   private
 
   def must_be_team_member
-    redirect_to home_pending_path unless current_user.team_member?
+    return redirect_to root_path unless current_user.present?
+    return redirect_to home_pending_path unless current_user.team_member?
   end
 
   def current_user

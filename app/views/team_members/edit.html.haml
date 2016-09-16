@@ -1,0 +1,27 @@
+%h1
+  = team_member_link(@team_member)
+  > Edit Profile
+
+= form_for @team_member, url: {action: "update"} do |f|
+  %p
+    = f.label :user
+    = user_link @team_member.user
+
+  %p
+    = f.label :name
+    = f.text_field :name
+
+  %p
+    = f.label :email
+    = f.text_field :email
+
+  %p
+    = f.label :phone
+    = f.text_field :phone
+
+  %p
+    Promoted by
+    = user_link(current_user)
+
+  %p
+    = f.submit

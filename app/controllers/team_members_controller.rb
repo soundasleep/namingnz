@@ -20,13 +20,28 @@ class TeamMembersController < ApplicationController
   def create
     @team_member = TeamMember.new team_member_params
     @team_member.promoted_by = current_user
+    @team_member.user = User.find(params[:team_member][:user_id])
     @team_member.save!
+
     flash[:notice] = "Team member created"
     redirect_to @team_member
   end
 
   def show
     @team_member = TeamMember.find params[:id]
+  end
+
+  def edit
+    @team_member = TeamMember.find params[:id]
+  end
+
+  def update
+    @team_member = TeamMember.find params[:id]
+    @team_member.update team_member_params
+    @team_member.save!
+
+    flash[:notice] = "Team member profile updated"
+    redirect_to @team_member
   end
 
   private
@@ -36,6 +51,6 @@ class TeamMembersController < ApplicationController
   end
 
   def team_member_params
-    params.require(:team_member).permit(:user_id, :name, :email, :phone)
+    params.require(:team_member).permit(:name, :email, :phone)
   end
 end

@@ -37,3 +37,16 @@ Feature: Team members manage applications
     Then I should see "Team members"
     And I should see "Users"
     And I should see "Applicants"
+
+  Scenario: A team member can edit their profile
+    When I log in as a team member
+    Then I should see "Hi Admin team member!"
+
+    When I click "Edit your profile"
+    And I set "team_member[name]" to "My new name"
+    And I click the "Update Team member" button
+    Then I should see "profile updated"
+
+    When I log in as a team member
+    Then I should see "Hi My new name!"
+

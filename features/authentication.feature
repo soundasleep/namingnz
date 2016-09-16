@@ -27,3 +27,7 @@ Feature: Authentication with Google OAuth2
 
     When I visit the list of applicants
     Then I should see an error
+
+  Scenario: An anonymous person tries to visit a secure page
+    When I visit the list of applicants
+    Then I should see "Please login"

@@ -34,6 +34,11 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       flash[:notice] = "Signed in!"
 
+      # if we have no team members, create one from the first user
+      if User.count == 1 && TeamMember.all.empty?
+        user.team_members.create! name: "Automatic first team member", email: "example@example.com", phone: "0"
+      end
+
       url = return_to || default_login_url(user)
       url = root_path if url.eql?('/logout')
       logger.debug "URL to redirect to: #{url}"

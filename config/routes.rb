@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get "/sessions/login_as" if Rails.env.test?
 
-  resources :team_members, only: [:index, :show, :new, :create] do
+  resources :team_members, only: [:index, :show, :new, :create, :edit, :update] do
     member do
       get "dashboard"
     end
