@@ -14,15 +14,14 @@ class ApplicantsController < ApplicationController
     @applicant.save!
 
     # Create a new ApplicantStatus
-    status = @applicant.applicant_statuses.create! status: ApplicantStatus::NEW, team_member: current_team_member
-    status.applicant_status_notes.create! content: params[:notes], team_member: current_team_member
+    @applicant.update_status! status: ApplicantStatus::NEW, team_member: current_team_member, notes: params[:notes]
 
     # And create new Applications for each possible Application
     Application::VALID_CATEGORIES.each do |category|
       if params[:categories] && params[:categories][category]
         application = @applicant.applications.create! category: category
 
-        status = application.application_statuses.create! status: ApplicationStatus::NEW, team_member: current_team_member
+        application.update_status! status: ApplicationStatus::NEW, team_member: current_team_member, notes: params[:notes]
       end
     end
 
@@ -41,6 +40,42 @@ class ApplicantsController < ApplicationController
     applicant.save!
 
     flash[:notice] = "Applicant assigned to #{team_member}"
+    redirect_to applicant
+  end
+
+  def mass_vote
+    applicant = Applicant.find params[:id]
+    votes = []
+    notes = params[:notes]
+
+    # TODO this should really go into a service
+    applicant.applications.each do |application|
+      TeamMember.all.each do |team_member|
+        if params[:vote] && params[:vote][application.id.to_s] && params[:vote][application.id.to_s][team_member.id.to_s]
+          value = params[:vote][application.id.to_s][team_member.id.to_s]
+          votes << application.votes.create!(vote: value, team_member: team_member)
+        end
+      end
+
+      # now change the status of each
+      if application.voted_yes?
+        application.update_status! status: ApplicationStatus::ACCEPTED, team_member: current_team_member, notes: notes
+      elsif application.voted_no?
+        application.update_status! status: ApplicationStatus::DECLINED, team_member: current_team_member, notes: notes
+      end
+    end
+
+    applicant.reload
+    if applicant.voted? && applicant.latest_status.status != ApplicantStatus::IN_PROGRESS
+      applicant.update_status! status: ApplicantStatus::IN_PROGRESS, team_member: current_team_member, notes: notes
+    end
+
+    # Assign to team member
+    team_member = TeamMember.find(params[:team_member_id])
+    applicant.team_member = team_member
+    applicant.save!
+
+    flash[:notice] = "#{votes.count} votes saved and applicant assigned to #{team_member}"
     redirect_to applicant
   end
 

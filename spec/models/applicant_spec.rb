@@ -23,6 +23,13 @@ RSpec.describe Applicant, type: :model do
         expect(Applicant.completed).to be_empty
       end
     end
+
+    describe "#voted?" do
+      it "is false" do
+        expect(@first).to_not be_voted
+        expect(@second).to_not be_voted
+      end
+    end
   end
 
   context "first applicant has new status" do

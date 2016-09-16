@@ -24,6 +24,54 @@ RSpec.describe Application, type: :model do
         expect(Application.completed).to be_empty
       end
     end
+
+    describe "#votes" do
+      it "is empty" do
+        expect(@first.votes).to be_empty
+        expect(@second.votes).to be_empty
+      end
+    end
+
+    describe "#voted_yes?" do
+      it "is false" do
+        expect(@first).to_not be_voted_yes
+        expect(@second).to_not be_voted_yes
+      end
+    end
+
+    describe "#voted_no?" do
+      it "is false" do
+        expect(@first).to_not be_voted_no
+        expect(@second).to_not be_voted_no
+      end
+    end
+
+    context "when a Yes vote is registered" do
+      before do
+        @first.votes.create! vote: Vote::YES, team_member: team_member
+      end
+
+      describe "#votes" do
+        it "is not empty" do
+          expect(@first.votes).to_not be_empty
+          expect(@second.votes).to be_empty
+        end
+      end
+
+      describe "#voted_yes?" do
+        it "is true" do
+          expect(@first).to be_voted_yes
+          expect(@second).to_not be_voted_yes
+        end
+      end
+
+      describe "#voted_no?" do
+        it "is false" do
+          expect(@first).to_not be_voted_no
+          expect(@second).to_not be_voted_no
+        end
+      end
+    end
   end
 
   context "first Application has new status" do

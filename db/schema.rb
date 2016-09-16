@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160916015033) do
+ActiveRecord::Schema.define(version: 20160916020833) do
 
   create_table "applicant_status_notes", force: :cascade do |t|
     t.integer  "applicant_status_id", limit: 4
@@ -130,6 +130,17 @@ ActiveRecord::Schema.define(version: 20160916015033) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer  "application_id", limit: 4
+    t.integer  "team_member_id", limit: 4
+    t.string   "vote",           limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "votes", ["application_id"], name: "index_votes_on_application_id", using: :btree
+  add_index "votes", ["team_member_id"], name: "index_votes_on_team_member_id", using: :btree
+
   add_foreign_key "applicant_status_notes", "applicant_statuses"
   add_foreign_key "applicant_status_notes", "team_members"
   add_foreign_key "applicant_statuses", "applicants"
@@ -143,4 +154,6 @@ ActiveRecord::Schema.define(version: 20160916015033) do
   add_foreign_key "cheques", "applications"
   add_foreign_key "cheques", "team_members"
   add_foreign_key "team_members", "users"
+  add_foreign_key "votes", "applications"
+  add_foreign_key "votes", "team_members"
 end

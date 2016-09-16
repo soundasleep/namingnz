@@ -27,6 +27,16 @@ When(/^I create a new applicant$/) do
   }
 end
 
+When(/^I create a new applicant with a (.+)$/) do |category|
+  steps %Q{
+    And I visit the list of applicants
+    And I click "New applicant"
+    And I set "applicant[nickname]" to "New applicant"
+    And I set "categories[#{category}]" to "1"
+    And I click the "Create Applicant" button
+  }
+end
+
 Then(/^I create a new name change application for the applicant$/) do
   steps %Q{
     And I click "New application"
@@ -37,8 +47,19 @@ end
 
 When(/^I assign the applicant to myself$/) do
   steps %Q{
-    Then I click "Modify assignment"
     Then I set "applicant[team_member_id]" to "#{new_team_member.id}"
-    Then I click the "Update Applicant" button
+  }
+end
+
+When(/^I assign the applicant to myself when voting$/) do
+  steps %Q{
+    Then I set "team_member_id" to "#{new_team_member.id}"
+  }
+end
+
+When(/^I set my vote to "([^"]*)" for a (.+)$/) do |vote, category|
+  application = Application.where(category: category).only.first
+  steps %Q{
+    Then I set "vote_#{application.id}_#{new_team_member.id}_#{vote}" to "#{vote}"
   }
 end

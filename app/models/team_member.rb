@@ -4,6 +4,7 @@ class TeamMember < ActiveRecord::Base
 
   has_many :applicants, dependent: :nullify
   has_many :applications, dependent: :nullify
+  has_many :votes, dependent: :destroy
 
   validates :name, presence: :true
   validates :email, presence: :true

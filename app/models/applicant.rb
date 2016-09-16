@@ -7,20 +7,34 @@ class Applicant < ActiveRecord::Base
 
   # TODO likely that this could be refactored into a concern or module?
   has_many :applicant_statuses, dependent: :destroy
-  has_one :latest_status, class_name: "ApplicantStatus"
 
   scope :latest_statuses, -> { joins("JOIN applicant_statuses ON applicant_statuses.id = applicants.latest_status_id" ) }
 
   scope :active, -> { where("id NOT IN (?)", completed.empty? ? "" : completed.map(&:id)) }
   scope :completed, -> { latest_statuses.where("applicant_statuses.status" => "completed") }
 
-  def update_status!(status:, team_member:)
+  def update_status!(status:, team_member:, notes: nil)
     new_status = applicant_statuses.create! status: status, team_member: team_member
     update_attributes! latest_status_id: new_status.id
+    if notes.present?
+      new_status.applicant_status_notes.create! content: notes, team_member: team_member
+    end
+  end
+
+  def latest_status
+    ApplicantStatus.find(latest_status_id) if latest_status_id
   end
   # TODO end refactor
 
   def latest_notes
-    applicant_statuses.map(&:applicant_status_notes).flatten.reject { |note| note.content.empty? }
+    applicant_statuses.joins(:applicant_status_notes).ordered
+  end
+
+  def voted?
+    !applications.map(&:votes).flatten.empty?
+  end
+
+  def pending_applications_to_vote_on
+    applications.select { |application| application.votes.empty? }
   end
 end

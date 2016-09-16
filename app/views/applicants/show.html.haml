@@ -1,13 +1,10 @@
 %h1
   = @applicant.nickname
   %small= link_to "(edit nickname)", edit_applicant_path(@applicant)
+  %small= applicant_status_link(@applicant.latest_status)
 
-%ul.applications
-  - @applicant.applications.each do |application|
-    %li
-      = application_link(application)
-
-  %li= link_to "New application", new_applicant_application_path(@applicant)
+%p
+  = link_to "New application", new_applicant_application_path(@applicant)
 
 %p
   Assigned to
@@ -27,14 +24,63 @@
 
 %pre= @applicant.form_details
 
-%h2 Latest notes
+%h2 Latest statuses
 
-%ul.notes
-  - @applicant.latest_notes.each do |note|
-    %li
-      %i #{note.content}
-      - if note.team_member.present?
-        %span - #{team_member_link(note.team_member)}
-      - else
-        %span - from nobody
+%ul.applicant_statuses
+- @applicant.applicant_statuses.ordered.each do |status|
+  %li
+    = applicant_status_link(status)
+    at
+    = status.created_at
 
+    %span.notes
+      - status.applicant_status_notes.each do |note|
+        %i #{note.content}
+        - if note.team_member.present?
+          %span - #{team_member_link(note.team_member)}
+        - else
+          %span - from nobody
+
+- if @applicant.voted?
+  %h2 Vote results
+
+  %dl.application_votes
+  - @applicant.applications.each do |application|
+    %dt= application_link(application)
+    %dd
+      %ul.votes
+        - application.votes.each do |vote|
+          %li.vote
+            = team_member_link(vote.team_member)
+            voted
+            = vote.vote
+
+- unless @applicant.pending_applications_to_vote_on.empty?
+  %h2 Team member vote
+
+  = form_for @applicant, url: {action: "mass_vote"}, method: :post do |f|
+
+    %dl.application_votes
+    - @applicant.pending_applications_to_vote_on.each do |application|
+      %dt= application_link(application)
+      %dd
+        %ul.votes
+          - TeamMember.all.each do |team_member|
+            %li.vote
+              = team_member_link(team_member)
+              votes
+
+              - Vote::VALID_VOTES.each do |vote|
+                = label_tag do
+                  = radio_button_tag("vote[#{application.id}][#{team_member.id}]", vote, id: "vote_#{application.id}_#{team_member.id}_#{vote}")
+                  = vote
+
+    %p
+      Notes
+      = text_area_tag :notes
+
+    %p
+      Assign to
+      = select_tag "team_member_id", options_for_select(TeamMember.all.map { |u| [u.to_s, u.id] })
+
+    = f.submit "Submit votes"

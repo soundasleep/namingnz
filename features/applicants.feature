@@ -10,7 +10,9 @@ Feature: Applicants apply for funds
     And I create a new name change application for the applicant
     Then I should see "Application for name change created"
 
-    When I assign the applicant to myself
+    When I click "Modify assignment"
+    And I assign the applicant to myself
+    And I click the "Update Applicant" button
     Then I should see "Assigned to Admin team member"
 
     And I log in as a team member
@@ -41,4 +43,4 @@ Feature: Applicants apply for funds
     Then I should see "name change"
     And I should see "Assigned to nobody"
 
-  # TODO scenarios for editing nicknames
+  # TODO scenarios for editing applicant nicknames

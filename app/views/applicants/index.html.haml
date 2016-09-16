@@ -2,10 +2,14 @@
   %thead
     %tr
       %th Nickname
+      %th Status
+      %th Assigned to
 
   %tbody
     - @applicants.each do |applicant|
       %tr
         %td= link_to(applicant.nickname, applicant_path(applicant))
+        %td= applicant_status_link(applicant.latest_status)
+        %td= team_member_link(applicant.team_member)
 
 = link_to "New applicant", new_applicant_path

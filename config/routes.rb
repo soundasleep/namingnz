@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :applicants, only: [:index, :show, :edit, :create, :update, :new] do
     member do
       patch "assign"
+      post "mass_vote"
     end
 
     resources :applications, only: [:show, :new, :create] do
